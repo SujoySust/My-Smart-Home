@@ -171,27 +171,6 @@ export const WeeklyPlanSection: React.FC = () => {
                           </p>
                         </div>
                       )}
-
-                      <div className="mt-4">
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button variant="outline" className="w-full">
-                              + Add meal
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="sm:max-w-[600px] w-[95%] p-4 sm:p-6 h-[90vh] sm:h-auto overflow-y-auto">
-                            <DialogHeader>
-                              <DialogTitle>Add New Meal</DialogTitle>
-                            </DialogHeader>
-                            <DialogClose ref={closeRef} />
-                            <MenuCreateOrEditForm
-                              day={day}
-                              mealTime={mealTime}
-                              closeRef={closeRef}
-                            />
-                          </DialogContent>
-                        </Dialog>
-                      </div>
                     </CardContent>
                   </Card>
                 </div>
