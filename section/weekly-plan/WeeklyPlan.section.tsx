@@ -84,6 +84,7 @@ export const WeeklyPlanSection: React.FC = () => {
                   Fill in the details for this meal.
                 </DialogDescription>
               </DialogHeader>
+              <DialogClose ref={closeRef} />
               <MenuCreateOrEditForm
                 day={selectedDay ?? undefined}
                 mealTime={selectedMealTime ?? undefined}

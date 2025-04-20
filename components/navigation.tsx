@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { Menu, UtensilsCrossed } from "lucide-react";
+import { Home, Menu, UtensilsCrossed } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -11,6 +11,7 @@ import { useState } from "react";
 const navigation = [
   { name: "Dashboard", href: "/dashboard" },
   { name: "Weekly Plan", href: "/weekly-plan" },
+  { name: "Expenses", href: "/expenses" },
 ];
 
 export function Navigation() {
@@ -23,8 +24,8 @@ export function Navigation() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link href="/dashboard" className="flex items-center space-x-2">
-              <UtensilsCrossed className="h-6 w-6" />
-              <span className="text-lg font-semibold">My Weekly Meals</span>
+              <Home className="h-6 w-6" />
+              <span className="text-lg font-semibold">My Home</span>
             </Link>
           </div>
 

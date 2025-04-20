@@ -31,7 +31,7 @@ export default function RootLayout({
             <div className="min-h-screen bg-background">
               <Navigation />
               <main className="container mx-auto px-4 py-8">{children}</main>
-              <Toaster />
+              <Toaster richColors position="top-right" />
             </div>
           </ThemeProvider>
         </Providers>
