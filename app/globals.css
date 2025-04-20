@@ -70,6 +70,25 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
+  /* Dialog mobile optimization */
+  @media (max-width: 640px) {
+    .dialog-content {
+      width: 95vw !important;
+      padding: 1rem !important;
+      max-height: 90vh !important;
+      overflow-y: auto !important;
+    }
+
+    .dialog-footer {
+      position: sticky;
+      bottom: 0;
+      background: white;
+      padding-top: 1rem;
+      margin-top: 1rem;
+      border-top: 1px solid #e5e7eb;
+    }
+  }
 }
 
 @layer base {

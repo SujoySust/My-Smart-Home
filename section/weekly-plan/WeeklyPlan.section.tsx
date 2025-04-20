@@ -13,16 +13,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { capitalizeFirstLetter } from "@/helper/function";
-import { Pencil, Trash2, Utensils } from "lucide-react";
-import React, { useRef } from "react";
-import { useWeeklyMealPlanAction } from "./WeeklyPlan.action";
 import {
   WEEKLY_PLAN_DAYS,
   WEEKLY_PLAN_DAYS_VALUES,
   WEEKLY_PLAN_MEAL_TIMES,
   WEEKLY_PLAN_MEAL_TIMES_VALUES,
 } from "@/helper/constants/weekly_plan.constant";
+import { capitalizeFirstLetter } from "@/helper/function";
+import { Pencil, Trash2, Utensils } from "lucide-react";
+import React, { useRef } from "react";
+import { useWeeklyMealPlanAction } from "./WeeklyPlan.action";
 
 export const WeeklyPlanSection: React.FC = () => {
   const {
@@ -75,17 +75,15 @@ export const WeeklyPlanSection: React.FC = () => {
 
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="w-full sm:w-auto"> + Add Meal</Button>
+              <Button className="w-full sm:w-auto">+ Add Meal</Button>
             </DialogTrigger>
-            <DialogContent className="w-[95vw] max-w-[600px] sm:w-full">
+            <DialogContent className="sm:max-w-[600px] w-[95%] p-4 sm:p-6 h-[90vh] sm:h-auto overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Add New Meal</DialogTitle>
                 <DialogDescription>
-                  Fill in the details for this meal. Click save when you are
-                  done.
+                  Fill in the details for this meal.
                 </DialogDescription>
               </DialogHeader>
-              <DialogClose ref={closeRef} />
               <MenuCreateOrEditForm
                 day={selectedDay ?? undefined}
                 mealTime={selectedMealTime ?? undefined}
@@ -131,7 +129,7 @@ export const WeeklyPlanSection: React.FC = () => {
                                           <Pencil className="h-4 w-4" />
                                         </button>
                                       </DialogTrigger>
-                                      <DialogContent className="w-[95vw] max-w-[600px] sm:w-full">
+                                      <DialogContent className="sm:max-w-[600px] w-[95%] p-4 sm:p-6 h-[90vh] sm:h-auto overflow-y-auto">
                                         <DialogHeader>
                                           <DialogTitle>Edit Meal</DialogTitle>
                                           <DialogDescription>
@@ -181,7 +179,7 @@ export const WeeklyPlanSection: React.FC = () => {
                               + Add meal
                             </Button>
                           </DialogTrigger>
-                          <DialogContent>
+                          <DialogContent className="sm:max-w-[600px] w-[95%] p-4 sm:p-6 h-[90vh] sm:h-auto overflow-y-auto">
                             <DialogHeader>
                               <DialogTitle>Add New Meal</DialogTitle>
                             </DialogHeader>
