@@ -8,7 +8,7 @@ export function ExpenseItem({
   deleteItem?: any;
 }) {
   return (
-    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+    <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
       <div>
         <div className="text-sm text-gray-500 dark:text-gray-400 capitalize">
           {expense.title}
