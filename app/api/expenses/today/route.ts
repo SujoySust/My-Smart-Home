@@ -18,14 +18,14 @@ export async function GET() {
       {
         $unwind: "$expenses",
       },
-      {
-        $match: {
-          "expenses.date": {
-            $gte: startOfToday,
-            $lte: endOfToday,
-          },
-        },
-      },
+      //   {
+      //     $match: {
+      //       "expenses.date": {
+      //         $gte: startOfToday,
+      //         $lte: endOfToday,
+      //       },
+      //     },
+      //   },
       {
         $sort: {
           "expenses.createdAt": -1,
