@@ -10,8 +10,12 @@ export function ExpenseItem({
   return (
     <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
       <div>
-        <div className="font-medium">{expense.description}</div>
-        <div className="text-sm text-gray-500 capitalize">{expense.title}</div>
+        <div className="text-sm text-gray-500 dark:text-gray-400 capitalize">
+          {expense.title}
+        </div>
+        <div className="font-medium text-foreground dark:text-white">
+          {expense.description}
+        </div>
       </div>
       <div className="flex items-center gap-4">
         <div className="font-semibold">BDT {expense.amount.toFixed(2)}</div>

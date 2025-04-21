@@ -1,10 +1,10 @@
 import { Navigation } from "@/components/navigation";
 import { Providers } from "@/components/providers";
+import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
-import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,7 +12,10 @@ export const metadata: Metadata = {
   title: "My Weekly Meals - Personal Meal Planner",
   description: "Plan and organize your weekly meals with ease",
   manifest: "/manifest.json",
-  themeColor: "#000000",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+  ],
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -45,7 +48,16 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="My Weekly Meals" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="theme-color" content="#000000" />
+        <meta
+          name="theme-color"
+          content="#000000"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#09090b"
+          media="(prefers-color-scheme: dark)"
+        />
 
         {/* Add Apple touch icons */}
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
@@ -67,7 +79,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Providers>
-          <div className="min-h-screen bg-background">
+          <div className="min-h-screen bg-background text-foreground">
             <Navigation />
             <main className="container mx-auto px-4 py-8">{children}</main>
           </div>

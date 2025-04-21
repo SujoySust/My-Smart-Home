@@ -37,10 +37,12 @@ export function InstallPrompt() {
   if (!showInstallButton) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 bg-white p-4 rounded-lg shadow-lg border flex items-center justify-between z-50">
+    <div className="fixed bottom-4 left-4 right-4 bg-card p-4 rounded-lg shadow-lg border flex items-center justify-between z-50">
       <div>
-        <h3 className="font-semibold">Install My Weekly Meals</h3>
-        <p className="text-sm text-gray-600">
+        <h3 className="font-semibold text-card-foreground">
+          Install My Weekly Meals
+        </h3>
+        <p className="text-sm text-muted-foreground">
           Add to your home screen for quick access
         </p>
       </div>
