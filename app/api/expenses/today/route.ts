@@ -11,6 +11,8 @@ export async function GET() {
     const startOfToday = startOfDay(today);
     const endOfToday = endOfDay(today);
 
+    console.log("startOfToday", startOfToday);
+    console.log("endOfToday", endOfToday);
     // Find expenses for today
     const todayExpenses = await MonthlyExpense.aggregate([
       {
