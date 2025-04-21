@@ -1,6 +1,6 @@
 "use client";
 
-import { useTodayExpenses } from "@/components/expenses/Expenses.action";
+import { useWeeklyExpenses } from "@/components/expenses/Expenses.action";
 import { Card } from "@/components/ui/card";
 import { format } from "date-fns";
 import { LoaderCard } from "../ui/loader-card";
@@ -9,7 +9,7 @@ import { ExpenseTotal } from "./ExpenseTotal";
 import { ExpenseItem } from "./ExpenseItem";
 
 export function WeeklyExpenses() {
-  const { data, isLoading, isError } = useTodayExpenses();
+  const { data, isLoading, isError } = useWeeklyExpenses();
 
   if (isLoading) {
     return <LoaderCard message="Loading weekly expenses" />;
@@ -28,19 +28,19 @@ export function WeeklyExpenses() {
         </span>
       </div>
 
-      {data.length === 0 ? (
+      {data?.expenses?.length === 0 ? (
         <div className="text-center text-gray-500 py-4">
           No expenses recorded in this week
         </div>
       ) : (
         <>
           <div className="space-y-4">
-            {data.map((expense, index: number) => (
+            {data?.expenses?.map((expense, index: number) => (
               <ExpenseItem key={index} expense={expense} />
             ))}
           </div>
 
-          <ExpenseTotal amount={0} />
+          <ExpenseTotal amount={data.totalAmount} />
         </>
       )}
     </Card>

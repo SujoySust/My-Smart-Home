@@ -1,7 +1,7 @@
 {
-  "name": "Meals App",
-  "short_name": "Meals",
-  "description": "Your personal meal planning assistant",
+  "name": "My Home App",
+  "short_name": "My Home",
+  "description": "Track your daily expenses and manage your weekly meal plans with this easy-to-use home management app",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

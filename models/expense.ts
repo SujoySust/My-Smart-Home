@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 export interface IExpense extends Document {
+  _id: string;
   title: string;
   amount: number;
   description: string;

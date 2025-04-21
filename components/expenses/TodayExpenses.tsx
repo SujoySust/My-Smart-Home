@@ -9,7 +9,7 @@ import { ExpenseItem } from "./ExpenseItem";
 import { ExpenseTotal } from "./ExpenseTotal";
 
 export function TodayExpenses() {
-  const { data, isLoading, isError } = useTodayExpenses();
+  const { data, isLoading, isError, deleteExpense } = useTodayExpenses();
 
   if (isLoading) {
     return <LoaderCard message="Loading today's expenses" />;
@@ -28,19 +28,23 @@ export function TodayExpenses() {
         </span>
       </div>
 
-      {data.length === 0 ? (
+      {data?.expenses.length === 0 ? (
         <div className="text-center text-gray-500 py-4">
           No expenses recorded today
         </div>
       ) : (
         <>
           <div className="space-y-4">
-            {data.map((expense, index: number) => (
-              <ExpenseItem key={index} expense={expense} />
+            {data?.expenses.map((expense, index: number) => (
+              <ExpenseItem
+                key={index}
+                expense={expense}
+                deleteItem={deleteExpense}
+              />
             ))}
           </div>
 
-          <ExpenseTotal amount={0} />
+          <ExpenseTotal amount={data?.totalAmount ?? 0} />
         </>
       )}
     </Card>

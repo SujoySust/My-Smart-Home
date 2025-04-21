@@ -50,7 +50,7 @@ const ExpenseCreateOrEditForm = ({
                   title: values.title,
                   description: values.description,
                   amount: values.amount,
-                  date: getTodayDate(),
+                  date: new Date(),
                 },
               });
             }
