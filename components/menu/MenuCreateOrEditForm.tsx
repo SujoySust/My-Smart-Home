@@ -27,7 +27,6 @@ const MenuCreateOrEditForm = ({
           mealTime: mealTime ?? "",
           name: item?.name ?? "",
           description: item?.description ?? "",
-          ingredients: item?.ingredients ? item?.ingredients?.join(",") : "",
           unit: item?.unit ?? "",
           quantity: item?.quantity ?? 0,
         }}
@@ -38,7 +37,6 @@ const MenuCreateOrEditForm = ({
           description: Yup.string(),
           day: Yup.string().required("Day is required!"),
           mealTime: Yup.string().required("Meal time is required!"),
-          ingredients: Yup.string(),
           quantity: Yup.number().min(0, "Quantity must be 0 or greater"),
           unit: Yup.string(),
         })}
@@ -51,7 +49,6 @@ const MenuCreateOrEditForm = ({
                 _id: item?._id,
                 name: values.name,
                 description: values.description,
-                ingredients: values?.ingredients?.split(","),
                 quantity: values.quantity,
                 unit: values.unit,
               },
@@ -63,7 +60,6 @@ const MenuCreateOrEditForm = ({
               item: {
                 name: values.name,
                 description: values.description,
-                ingredients: values?.ingredients?.split(","),
                 quantity: values.quantity,
                 unit: values.unit,
               },
@@ -115,13 +111,6 @@ const MenuCreateOrEditForm = ({
             />
 
             <FormField
-              name="ingredients"
-              label="Ingredients"
-              as="textarea"
-              placeholder="Enter ingredients (one per line)"
-            />
-
-            <FormField
               name="description"
               label="Description"
               as="textarea"
@@ -134,10 +123,20 @@ const MenuCreateOrEditForm = ({
               className="w-full rounded-md border border-input bg-background px-3 py-2"
               as="select"
               options={[
-                { value: "serving", label: "Serving" },
                 { value: "piece", label: "Piece" },
                 { value: "gram", label: "Gram" },
+                { value: "kilogram", label: "Kilogram" },
                 { value: "ml", label: "ML" },
+                { value: "liter", label: "Liter" },
+                { value: "cup", label: "Cup" },
+                { value: "tablespoon", label: "Tablespoon" },
+                { value: "teaspoon", label: "Teaspoon" },
+                { value: "ounce", label: "Ounce" },
+                { value: "pound", label: "Pound" },
+                { value: "slice", label: "Slice" },
+                { value: "package", label: "Package" },
+                { value: "can", label: "Can" },
+                { value: "bottle", label: "Bottle" },
               ]}
             />
 

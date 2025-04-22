@@ -22,9 +22,13 @@ export function useWeeklyMealPlanAction() {
     WEEKLY_PLAN_MEAL_TIMES_VALUES
   );
 
+  const today = new Date();
+  const todayDay = today.toLocaleDateString("en-US", { weekday: "long" });
+  const todayDayValue = todayDay.toLowerCase();
+
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedDay, setSelectedDay] = useState<WEEKLY_PLAN_DAYS | undefined>(
-    undefined
+    todayDayValue as WEEKLY_PLAN_DAYS
   );
   const [selectedMealTime, setSelectedMealTime] = useState<
     WEEKLY_PLAN_MEAL_TIMES | undefined

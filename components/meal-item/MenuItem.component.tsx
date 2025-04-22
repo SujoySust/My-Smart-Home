@@ -11,12 +11,6 @@ export const MenuItem = ({ item }: { item: MealItem }) => {
           {item.description}
         </p>
       )}
-      {item.ingredients && item.ingredients.length > 0 && (
-        <div className="text-sm text-muted-foreground dark:text-gray-400">
-          <span className="font-medium dark:text-gray-300">Ingredients: </span>
-          {item.ingredients.join(", ")}
-        </div>
-      )}
       {item.quantity && (
         <div className="text-sm text-muted-foreground dark:text-gray-400">
           <span className="font-medium dark:text-gray-300">Quantity: </span>

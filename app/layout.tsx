@@ -9,8 +9,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "My Weekly Meals - Personal Meal Planner",
-  description: "Plan and organize your weekly meals with ease",
+  title: "My Home - Personal Home Management",
+  description: "Manage your home tasks, meals, and expenses with ease",
   manifest: "/manifest.json",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "My Weekly Meals",
+    title: "My Home",
   },
   viewport: {
     width: "device-width",
@@ -42,39 +42,28 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
-        <meta name="application-name" content="My Weekly Meals" />
+        <meta name="application-name" content="My Home" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="My Weekly Meals" />
+        <meta name="apple-mobile-web-app-title" content="My Home" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta
-          name="theme-color"
-          content="#000000"
-          media="(prefers-color-scheme: light)"
-        />
-        <meta
-          name="theme-color"
-          content="#09090b"
-          media="(prefers-color-scheme: dark)"
-        />
+        <meta name="msapplication-config" content="/icons/browserconfig.xml" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="theme-color" content="#000000" />
 
-        {/* Add Apple touch icons */}
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <link
-          rel="apple-touch-icon"
-          sizes="152x152"
-          href="/icons/icon-152x152.png"
+          rel="icon"
+          type="image/png"
+          sizes="192x192"
+          href="/icons/icon-192x192.png"
         />
         <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/icons/icon-180x180.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="167x167"
-          href="/icons/icon-167x167.png"
+          rel="icon"
+          type="image/png"
+          sizes="512x512"
+          href="/icons/icon-512x512.png"
         />
       </head>
       <body className={inter.className}>

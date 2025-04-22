@@ -47,7 +47,7 @@ export const WeeklyPlanSection: React.FC = () => {
         <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
           <select
             className="w-full sm:w-48 rounded-md border border-input bg-background px-3 py-2"
-            defaultValue=""
+            defaultValue={selectedDay}
             onChange={(e) => setSelectedDay(e.target.value as WEEKLY_PLAN_DAYS)}
           >
             <option value="">All Days</option>

@@ -3,13 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { Home, Menu, UtensilsCrossed } from "lucide-react";
+import { Home, Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard" },
+  { name: "Dashboard", href: "/" },
   { name: "Weekly Plan", href: "/weekly-plan" },
   { name: "Expenses", href: "/expenses" },
 ];
@@ -23,7 +23,7 @@ export function Navigation() {
       <nav className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <Link href="/dashboard" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2">
               <Home className="h-6 w-6" />
               <span className="text-lg font-semibold">My Home</span>
             </Link>

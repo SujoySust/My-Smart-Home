@@ -4,7 +4,6 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface IMealItem extends Document {
   name: string;
   description?: string;
-  ingredients?: string[];
   quantity?: number;
   unit?: string;
   createdAt: Date;
@@ -41,7 +40,6 @@ const MealItemSchema = new Schema(
   {
     name: { type: String, required: true },
     description: String,
-    ingredients: [String],
     quantity: Number,
     unit: String,
   },
