@@ -6,13 +6,14 @@ export interface IExpense extends Document {
   amount: number;
   description: string;
   date: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface IMonthlyExpense extends Document {
   year: number;
   month: number; // 1-12
   expenses: IExpense[];
-  totalAmount: number;
 }
 
 const ExpenseSchema = new mongoose.Schema<IExpense>(
@@ -30,7 +31,6 @@ export const MonthlyExpenseSchema = new mongoose.Schema<IMonthlyExpense>(
     year: { type: Number, required: true },
     month: { type: Number, required: true, min: 1, max: 12 },
     expenses: [ExpenseSchema],
-    totalAmount: { type: Number, required: true, default: 0 },
   },
   {
     timestamps: true,

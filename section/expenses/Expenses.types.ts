@@ -5,3 +5,9 @@ export interface IExpense {
   description: string;
   date: Date;
 }
+
+export interface IExpenseTotals {
+  daily: number;
+  weekly: number;
+  monthly: number;
+}

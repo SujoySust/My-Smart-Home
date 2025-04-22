@@ -18,6 +18,8 @@ import { TodayExpenses } from "@/components/expenses/TodayExpenses";
 import { WeeklyExpenses } from "@/components/expenses/WeeklyExpenses";
 import { MonthlyExpenses } from "@/components/expenses/MonthlyExpenses";
 import { ExpenseSummary } from "@/components/expenses/ExpenseSummary";
+import { useTodayExpenses } from "@/components/expenses/Expenses.action";
+import { useTotalExpense } from "./useTotalExpense";
 
 export const CurrentExpenseSection: React.FC = () => {
   const today = new Date();
@@ -26,22 +28,24 @@ export const CurrentExpenseSection: React.FC = () => {
 
   const closeRef = useRef<HTMLButtonElement>(null);
 
+  const { data } = useTotalExpense();
+
   return (
     <>
       <div className="grid gap-3 sm:gap-4 lg:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         <ExpenseSummary
           title="Today's Expenses"
-          amount={0.0}
+          amount={data?.daily ?? 0}
           subtitle={format(new Date(), "MMM d, yyyy")}
         />
         <ExpenseSummary
           title="Weekly Total"
-          amount={0.0}
-          subtitle="Last 7 days"
+          amount={data?.weekly ?? 0}
+          subtitle="This week"
         />
         <ExpenseSummary
           title="Monthly Total"
-          amount={0.0}
+          amount={data?.monthly ?? 0}
           subtitle={format(new Date(), "MMMM yyyy")}
         />
       </div>

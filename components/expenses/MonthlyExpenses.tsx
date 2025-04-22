@@ -16,7 +16,10 @@ export function MonthlyExpenses({
   year: number;
   month: number;
 }) {
-  const { data, isLoading, isError } = useMonthlyExpenses({ year, month });
+  const { data, isLoading, isError, deleteExpense } = useMonthlyExpenses({
+    year,
+    month,
+  });
 
   if (isLoading) {
     return <LoaderCard message="Loading monthly expenses" />;
@@ -43,7 +46,11 @@ export function MonthlyExpenses({
         <>
           <div className="space-y-4">
             {data?.expenses?.map((expense, index: number) => (
-              <ExpenseItem key={index} expense={expense} />
+              <ExpenseItem
+                key={index}
+                expense={expense}
+                deleteItem={deleteExpense}
+              />
             ))}
           </div>
 

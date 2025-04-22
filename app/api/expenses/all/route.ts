@@ -17,10 +17,24 @@ export async function GET(request: Request) {
       );
     }
 
-    const monthlyExpense = await MonthlyExpense.findOne({
-      year: parseInt(year),
-      month: parseInt(month),
-    });
+    const monthlyExpense = await MonthlyExpense.aggregate([
+      {
+        $match: {
+          year: parseInt(year),
+          month: parseInt(month),
+        },
+      },
+      { $unwind: "$expenses" },
+      { $sort: { "expenses.createdAt": -1 } },
+      {
+        $group: {
+          _id: "$_id",
+          expenses: { $push: "$expenses" },
+          year: { $first: "$year" },
+          month: { $first: "$month" },
+        },
+      },
+    ]).then((results) => results[0]);
 
     if (!monthlyExpense) {
       return NextResponse.json({

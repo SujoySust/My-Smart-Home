@@ -9,7 +9,7 @@ import { ExpenseTotal } from "./ExpenseTotal";
 import { ExpenseItem } from "./ExpenseItem";
 
 export function WeeklyExpenses() {
-  const { data, isLoading, isError } = useWeeklyExpenses();
+  const { data, isLoading, isError, deleteExpense } = useWeeklyExpenses();
 
   if (isLoading) {
     return <LoaderCard message="Loading weekly expenses" />;
@@ -36,7 +36,11 @@ export function WeeklyExpenses() {
         <>
           <div className="space-y-4">
             {data?.expenses?.map((expense, index: number) => (
-              <ExpenseItem key={index} expense={expense} />
+              <ExpenseItem
+                key={index}
+                expense={expense}
+                deleteItem={deleteExpense}
+              />
             ))}
           </div>
 

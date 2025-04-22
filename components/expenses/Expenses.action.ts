@@ -88,11 +88,34 @@ export function useWeeklyExpenses() {
       return response.json();
     },
   });
+
+  const deleteExpense = useMutation({
+    mutationFn: async (expenseId: string) => {
+      const month = new Date().getMonth();
+      const year = new Date().getFullYear();
+
+      const response = await fetch(`/api/expenses`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ expenseId, month, year }),
+      });
+      if (!response.ok) toast.error("Failed to delete expense");
+      return response.json();
+    },
+    onSuccess: () => {
+      toast.success("Expense deleted successfully");
+      refetch();
+    },
+    onError: () => {
+      toast.error("Failed to delete expense");
+    },
+  });
   return {
     data: data as { expenses: IExpense[]; totalAmount: number },
     refetch,
     isLoading,
     isError,
+    deleteExpense: deleteExpense.mutateAsync,
   };
 }
 
@@ -113,10 +136,34 @@ export function useMonthlyExpenses({
       return response.json();
     },
   });
+
+  const deleteExpense = useMutation({
+    mutationFn: async (expenseId: string) => {
+      const month = new Date().getMonth();
+      const year = new Date().getFullYear();
+
+      const response = await fetch(`/api/expenses`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ expenseId, month, year }),
+      });
+      if (!response.ok) toast.error("Failed to delete expense");
+      return response.json();
+    },
+    onSuccess: () => {
+      toast.success("Expense deleted successfully");
+      refetch();
+    },
+    onError: () => {
+      toast.error("Failed to delete expense");
+    },
+  });
+
   return {
     data: data as { expenses: IExpense[]; totalAmount: number },
     refetch,
     isLoading,
     isError,
+    deleteExpense: deleteExpense.mutateAsync,
   };
 }

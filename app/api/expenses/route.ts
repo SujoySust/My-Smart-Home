@@ -76,11 +76,9 @@ export async function POST(request: Request) {
         year,
         month,
         expenses: [expense],
-        totalAmount: expense.amount,
       });
     } else {
       monthlyExpense.expenses.push(expense);
-      monthlyExpense.totalAmount += expense.amount;
     }
 
     await monthlyExpense.save();
@@ -116,7 +114,6 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: "Expense not found" }, { status: 404 });
     }
 
-    monthlyExpense.totalAmount -= monthlyExpense.expenses[expenseIndex].amount;
     monthlyExpense.expenses.splice(expenseIndex, 1);
 
     await monthlyExpense.save();
