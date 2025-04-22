@@ -12,6 +12,7 @@ const navigation = [
   { name: "Dashboard", href: "/" },
   { name: "Weekly Plan", href: "/weekly-plan" },
   { name: "Expenses", href: "/expenses" },
+  { name: "Bazar List", href: "/bazar" },
 ];
 
 export function Navigation() {

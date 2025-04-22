@@ -3,7 +3,6 @@
 import { MenuItem } from "@/components/meal-item/MenuItem.component";
 import MenuCreateOrEditForm from "@/components/menu/MenuCreateOrEditForm";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogClose,
@@ -20,7 +19,7 @@ import {
   WEEKLY_PLAN_MEAL_TIMES_VALUES,
 } from "@/helper/constants/weekly_plan.constant";
 import { capitalizeFirstLetter } from "@/helper/function";
-import { Pencil, Trash2, Utensils } from "lucide-react";
+import { Utensils } from "lucide-react";
 import React, { useRef } from "react";
 import { useWeeklyMealPlanAction } from "./WeeklyPlan.action";
 
