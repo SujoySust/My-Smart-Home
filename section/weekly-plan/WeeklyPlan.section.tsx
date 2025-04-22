@@ -96,89 +96,67 @@ export const WeeklyPlanSection: React.FC = () => {
       </div>
 
       {weekDays.map((day, dayIndex) => (
-        <Card key={dayIndex} className="mb-6">
-          <CardHeader>
-            <CardTitle>{capitalizeFirstLetter(day)}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div
+          key={dayIndex}
+          className="mb-6 bg-white dark:bg-gray-800 rounded-lg shadow-md"
+        >
+          <div className="px-3 sm:px-4 py-3 sm:py-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+              {capitalizeFirstLetter(day)}
+            </h2>
+          </div>
+          <div className="p-3 sm:p-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
               {mealTimes.map((mealTime, mealIndex) => (
-                <div key={mealIndex} className="w-full">
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-base sm:text-lg font-medium">
-                        {capitalizeFirstLetter(mealTime)}
-                      </CardTitle>
-                      <Utensils className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                      {mealPlan?.[day]?.[mealTime]?.items &&
-                      mealPlan?.[day]?.[mealTime]?.items?.length > 0 ? (
-                        <div className="space-y-3">
-                          {mealPlan[day][mealTime].items.map(
-                            (item, itemIndex) => (
-                              <div
-                                key={itemIndex}
-                                className="bg-card rounded-lg shadow-sm p-4"
-                              >
-                                <div className="flex justify-between items-start gap-4">
-                                  <MenuItem item={item} />
-                                  <div className="flex gap-2 shrink-0">
-                                    <Dialog>
-                                      <DialogTrigger asChild>
-                                        <button className="p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-md transition-colors">
-                                          <Pencil className="h-4 w-4" />
-                                        </button>
-                                      </DialogTrigger>
-                                      <DialogContent className="sm:max-w-[600px] w-[95%] p-4 sm:p-6 h-[90vh] sm:h-auto overflow-y-auto">
-                                        <DialogHeader>
-                                          <DialogTitle>Edit Meal</DialogTitle>
-                                          <DialogDescription>
-                                            Update the details for this meal.
-                                          </DialogDescription>
-                                        </DialogHeader>
-                                        <DialogClose ref={closeRef} />
-                                        <MenuCreateOrEditForm
-                                          day={day}
-                                          mealTime={mealTime}
-                                          item={item}
-                                          closeRef={closeRef}
-                                        />
-                                      </DialogContent>
-                                    </Dialog>
+                <div
+                  key={mealIndex}
+                  className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 sm:p-4"
+                >
+                  <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-200 dark:border-gray-700">
+                    <Utensils className="h-5 w-5 text-primary" />
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      {capitalizeFirstLetter(mealTime)}
+                    </h3>
+                  </div>
 
-                                    <button
-                                      className="p-2 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors"
-                                      onClick={async () =>
-                                        await deleteMealItem({
-                                          day,
-                                          mealTime,
-                                          itemId: item._id as string,
-                                        })
-                                      }
-                                    >
-                                      <Trash2 className="h-4 w-4" />
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            )
-                          )}
-                        </div>
-                      ) : (
-                        <div className="text-center py-6">
-                          <p className="text-muted-foreground">
-                            No meals planned yet
-                          </p>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
+                  <div>
+                    {mealPlan?.[day]?.[mealTime]?.items &&
+                    mealPlan?.[day]?.[mealTime]?.items?.length > 0 ? (
+                      <div className="space-y-3">
+                        {mealPlan[day][mealTime].items.map(
+                          (item, itemIndex) => (
+                            <div
+                              key={itemIndex}
+                              className="bg-white dark:bg-gray-800 rounded-lg p-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                            >
+                              <MenuItem
+                                item={item}
+                                deleteMealItem={async () => {
+                                  await deleteMealItem({
+                                    day,
+                                    mealTime,
+                                    itemId: item._id as string,
+                                  });
+                                }}
+                              />
+                            </div>
+                          )
+                        )}
+                      </div>
+                    ) : (
+                      <div className="text-center py-4">
+                        <Utensils className="h-12 w-12 text-gray-400 dark:text-gray-600 mx-auto mb-2" />
+                        <p className="text-gray-500 dark:text-gray-400">
+                          No meals planned for {mealTime.toLowerCase()} yet
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       ))}
     </div>
   );
