@@ -1,7 +1,7 @@
 "use client";
 import { BazarList } from "@/components/bazar/BazarList";
-import { useDailyBazar } from "./Bazar.action";
 import { BAZAR_STATUS } from "@/helper/constants/bazar.constant";
+import { useDailyBazar } from "./Bazar.action";
 
 export const DailyBazarSection: React.FC = () => {
   const { data, isLoading, isError, completeBazar, deleteBazar } =
