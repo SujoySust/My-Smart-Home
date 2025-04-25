@@ -31,9 +31,6 @@ export const BazarDayList: React.FC<BazarDayListProps> = ({
           <BazarItem
             key={item.id}
             name={item.name}
-            amount={item.amount}
-            unit={item.unit}
-            quantity={item.quantity}
             checked={item.checked}
             disabled={item.disabled}
             onCheckChange={(checked) => onItemCheckChange?.(item.id, checked)}

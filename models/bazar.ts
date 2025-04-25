@@ -3,12 +3,10 @@ import mongoose from "mongoose";
 export interface IBazarItem extends Document {
   _id: string;
   title: string;
-  uint: string;
-  qantity: string;
   status: string;
   date: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface IBazar extends Document {
@@ -20,8 +18,6 @@ export interface IBazar extends Document {
 const BazarItemSchema = new mongoose.Schema<IBazarItem>(
   {
     title: { type: String, required: true },
-    uint: { type: String, required: true },
-    qantity: { type: String, required: true },
     status: { type: String, required: true },
     date: { type: Date, required: true },
   },

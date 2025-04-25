@@ -1,72 +1,41 @@
 "use client";
 import { BazarList } from "@/components/bazar/BazarList";
-import { useState } from "react";
-
-interface BazarItem {
-  id: string;
-  name: string;
-  amount?: number;
-  unit?: string;
-  quantity?: number;
-  checked?: boolean;
-  disabled?: boolean;
-}
+import { useDailyBazar } from "./Bazar.action";
+import { BAZAR_STATUS } from "@/helper/constants/bazar.constant";
 
 export const DailyBazarSection: React.FC = () => {
-  const [todayItems, setTodayItems] = useState<BazarItem[]>([
-    { id: "1", name: "Rice", quantity: 2, unit: "kg", amount: 120 },
-    { id: "2", name: "Vegetables", amount: 80 },
-  ]);
-
-  const [completedItems, setCompletedItems] = useState<BazarItem[]>([
-    {
-      id: "3",
-      name: "Rice",
-      quantity: 2,
-      unit: "kg",
-      amount: 120,
-      checked: true,
-      disabled: true,
-    },
-    {
-      id: "4",
-      name: "Onions",
-      quantity: 1,
-      unit: "kg",
-      amount: 60,
-      checked: true,
-      disabled: true,
-    },
-    {
-      id: "5",
-      name: "Potatoes",
-      quantity: 2,
-      unit: "kg",
-      amount: 80,
-      checked: true,
-      disabled: true,
-    },
-  ]);
-
-  const handleItemCheckChange = (id: string, checked: boolean) => {
-    setTodayItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, checked } : item))
-    );
-  };
+  const { data, isLoading, isError, completeBazar, deleteBazar } =
+    useDailyBazar();
+  const pendingItems =
+    (data && data?.filter((item) => item.status == BAZAR_STATUS.PENDING)) ?? [];
+  const completedItems =
+    (data && data?.filter((item) => item.status == BAZAR_STATUS.COMPLETED)) ??
+    [];
 
   return (
     <>
       <BazarList
         title="Today's Bazar"
-        items={todayItems}
-        onItemCheckChange={handleItemCheckChange}
-        showAddButton
-        onAddClick={() => {
-          // TODO: Implement add item functionality
-          console.log("Add item clicked");
+        items={pendingItems}
+        onItemCheckChange={async (id: string, checked: boolean) => {
+          await completeBazar(id);
         }}
+        onItemDelete={async (id) => {
+          await deleteBazar(id);
+        }}
+        showAddButton
       />
-      <BazarList title="Today's Completed Items" items={completedItems} />
+      <BazarList
+        title="Today's Completed Items"
+        items={completedItems}
+        onItemCheckChange={async (id: string, checked: boolean) => {
+          await completeBazar(id);
+        }}
+        onItemDelete={async (id) => {
+          await deleteBazar(id);
+        }}
+        diabledCompleted={false}
+      />
     </>
   );
 };

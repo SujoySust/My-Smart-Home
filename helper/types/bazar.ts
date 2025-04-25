@@ -1,8 +1,6 @@
 export interface IBazarItem {
-  _id: string;
-  name: string;
-  unit: string;
-  quantity: number;
+  _id?: string;
+  title: string;
   status?: string;
   date?: Date;
 }

@@ -1,23 +1,23 @@
+import { BAZAR_STATUS } from "@/helper/constants/bazar.constant";
 import dbConnect from "@/lib/mongoose";
 import { Bazar, IBazarItem } from "@/models/bazar";
 import { NextResponse } from "next/server";
-import { BAZAR_STATUS } from "./constants";
 
 export async function POST(request: Request) {
   try {
     await dbConnect();
 
     const body = await request.json();
-    const { title, uint, qantity } = body;
+    const { title, date: dateString } = body;
 
-    if (!title || !uint || !qantity) {
+    if (!title) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
 
-    const date = new Date();
+    const date = new Date(dateString);
     date.setHours(0, 0, 0, 0);
 
     const year = date.getFullYear();
@@ -25,7 +25,6 @@ export async function POST(request: Request) {
 
     // Find or create monthly bazar document
     let bazar = await Bazar.findOne({ year, month });
-
     if (!bazar) {
       bazar = await Bazar.create({
         year,
@@ -37,8 +36,6 @@ export async function POST(request: Request) {
     // Add new bazar item
     bazar.items.push({
       title,
-      uint,
-      qantity,
       date,
       status: BAZAR_STATUS.PENDING,
     });
@@ -74,21 +71,16 @@ export async function GET(request: Request) {
       );
     }
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    start.setHours(0, 0, 0, 0);
-    end.setHours(23, 59, 59, 999);
-
     // Find bazars with items in date range
     const bazars = await Bazar.aggregate([
       { $unwind: "$items" },
       {
         $match: {
           "items.date": {
-            $gte: start,
-            $lte: end,
+            $gte: new Date(startDate),
+            $lte: new Date(endDate),
           },
-          "items.status": status,
+          ...(status ? { "items.status": status } : {}),
         },
       },
       {
@@ -130,7 +122,6 @@ export async function DELETE(request: Request) {
     await dbConnect();
     const body = await request.json();
     const { year, month, itemId } = body;
-
     const bazar = await Bazar.findOne({ year, month });
 
     if (!bazar) {

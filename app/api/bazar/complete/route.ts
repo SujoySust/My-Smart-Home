@@ -1,7 +1,7 @@
+import { BAZAR_STATUS } from "@/helper/constants/bazar.constant";
 import dbConnect from "@/lib/mongoose";
 import { Bazar } from "@/models/bazar";
 import { NextResponse } from "next/server";
-import { BAZAR_STATUS } from "../constants";
 
 export async function POST(request: Request) {
   try {
@@ -9,6 +9,8 @@ export async function POST(request: Request) {
 
     const body = await request.json();
     const { itemId } = body;
+
+    console.log("itemId", itemId);
 
     if (!itemId) {
       return NextResponse.json(
@@ -18,8 +20,6 @@ export async function POST(request: Request) {
     }
 
     const date = new Date();
-    date.setHours(0, 0, 0, 0);
-
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
 
