@@ -2,47 +2,69 @@ import dbConnect from "@/lib/mongoose";
 import { Bazar } from "@/models/bazar";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     await dbConnect();
 
-    const today = new Date();
-    const startOfWeek = new Date(today);
-    startOfWeek.setDate(today.getDate() - today.getDay());
-    startOfWeek.setHours(0, 0, 0, 0);
+    const { searchParams } = new URL(request.url);
+    const startDate = searchParams.get("startDate");
+    const endDate = searchParams.get("endDate");
 
-    const endOfWeek = new Date(startOfWeek);
-    endOfWeek.setDate(startOfWeek.getDate() + 6);
-    endOfWeek.setHours(23, 59, 59, 999);
+    if (!startDate || !endDate) {
+      return NextResponse.json(
+        { error: "Start date and end date are required" },
+        { status: 400 }
+      );
+    }
 
     const weeklyBazar = await Bazar.aggregate([
       { $unwind: "$items" },
       {
         $match: {
           "items.date": {
-            $gte: startOfWeek,
-            $lte: endOfWeek,
+            $gte: new Date(startDate),
+            $lte: new Date(endDate),
           },
         },
       },
       {
         $group: {
           _id: {
-            $dateToString: { format: "%Y-%m-%d", date: "$items.date" },
+            dayOfWeek: { $dayOfWeek: "$items.date" },
+            date: {
+              $dateToString: { format: "%Y-%m-%d", date: "$items.date" },
+            },
           },
           items: { $push: "$items" },
         },
       },
       {
-        $sort: { _id: 1 },
+        $project: {
+          _id: 0,
+          date: "$_id.date",
+          day: {
+            $switch: {
+              branches: [
+                { case: { $eq: ["$_id.dayOfWeek", 1] }, then: "Sunday" },
+                { case: { $eq: ["$_id.dayOfWeek", 2] }, then: "Monday" },
+                { case: { $eq: ["$_id.dayOfWeek", 3] }, then: "Tuesday" },
+                { case: { $eq: ["$_id.dayOfWeek", 4] }, then: "Wednesday" },
+                { case: { $eq: ["$_id.dayOfWeek", 5] }, then: "Thursday" },
+                { case: { $eq: ["$_id.dayOfWeek", 6] }, then: "Friday" },
+                { case: { $eq: ["$_id.dayOfWeek", 7] }, then: "Saturday" },
+              ],
+            },
+          },
+          items: 1,
+        },
+      },
+      {
+        $sort: { date: 1 },
       },
     ]);
 
     return NextResponse.json({
-      weeklyBazar: weeklyBazar.map((day) => ({
-        date: day._id,
-        items: day.items,
-      })),
+      weeklyBazar,
     });
   } catch (error) {
     console.error("Error fetching weekly bazar:", error);

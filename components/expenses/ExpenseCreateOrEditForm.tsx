@@ -1,7 +1,6 @@
 "use client";
 
 import { useTodayExpenses } from "@/components/expenses/Expenses.action";
-import { getTodayDate } from "@/helper/function";
 import { IExpense } from "@/section/expenses/Expenses.types";
 import { Form, Formik } from "formik";
 import { toast } from "sonner";

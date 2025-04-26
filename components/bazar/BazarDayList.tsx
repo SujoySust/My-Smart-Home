@@ -1,39 +1,24 @@
+import { IBazarItem } from "@/helper/types/bazar";
 import { BazarItem } from "./BazarItem";
-
-interface BazarDayItem {
-  id: string;
-  name: string;
-  amount?: number;
-  unit?: string;
-  quantity?: number;
-  checked?: boolean;
-  disabled?: boolean;
-}
 
 interface BazarDayListProps {
   day: string;
-  items: BazarDayItem[];
-  onItemCheckChange?: (id: string, checked: boolean) => void;
+  items: IBazarItem[];
 }
 
-export const BazarDayList: React.FC<BazarDayListProps> = ({
-  day,
-  items,
-  onItemCheckChange,
-}) => {
+export const BazarDayList: React.FC<BazarDayListProps> = ({ day, items }) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg">
       <h3 className="font-medium mb-3 text-gray-700 dark:text-gray-300">
         {day}
       </h3>
       <div className="space-y-2">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <BazarItem
-            key={item.id}
-            name={item.name}
-            checked={item.checked}
-            disabled={item.disabled}
-            onCheckChange={(checked) => onItemCheckChange?.(item.id, checked)}
+            key={index}
+            name={item.title}
+            checked={true}
+            disabled={true}
           />
         ))}
       </div>

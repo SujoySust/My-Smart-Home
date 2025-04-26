@@ -3,8 +3,7 @@ import { IExpense } from "../../section/expenses/Expenses.types";
 import { endOfDay, endOfWeek, startOfDay, startOfWeek } from "date-fns";
 import { toast } from "sonner";
 
-export function useTodayExpenses() {
-  const queryClient = useQueryClient();
+export function useTodayExpenses(refetchTotal?: () => void) {
   const today = new Date();
   const start = startOfDay(today).toISOString();
   const end = endOfDay(today).toISOString();
@@ -35,8 +34,8 @@ export function useTodayExpenses() {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["today-expenses"] });
       refetch();
+      refetchTotal && refetchTotal();
     },
   });
 
@@ -54,9 +53,9 @@ export function useTodayExpenses() {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["today-expenses"] });
       toast.success("Expense deleted successfully");
       refetch();
+      refetchTotal && refetchTotal();
     },
     onError: () => {
       toast.error("Failed to delete expense");

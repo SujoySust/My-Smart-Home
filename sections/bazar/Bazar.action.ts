@@ -1,6 +1,6 @@
 import { IBazarItem } from "@/helper/types/bazar";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { endOfDay, startOfDay } from "date-fns";
+import { endOfDay, endOfWeek, startOfDay, startOfWeek } from "date-fns";
 import { toast } from "sonner";
 
 export const useDailyBazar = () => {
@@ -75,5 +75,60 @@ export const useDailyBazar = () => {
     addBazar: addBazar.mutateAsync,
     deleteBazar: deleteBazar.mutateAsync,
     completeBazar: completeBazar.mutateAsync,
+  };
+};
+
+export const useWeeklyBazar = () => {
+  const today = new Date();
+  const start = startOfWeek(today).toISOString();
+  const end = endOfWeek(today).toISOString();
+
+  const { data, refetch, isLoading, isError } = useQuery({
+    queryKey: ["weekly-bazar"],
+    queryFn: async () => {
+      const response = await fetch(
+        `/api/bazar/weekly?startDate=${start}&endDate=${end}`
+      );
+      if (!response.ok) toast.error("Failed to fetch weekly bazar");
+      return response.json();
+    },
+  });
+
+  return {
+    data: data?.weeklyBazar as {
+      date: string;
+      day: string;
+      items: IBazarItem[];
+    }[],
+    refetch,
+    isLoading,
+    isError,
+  };
+};
+
+export const useMonthlyBazar = () => {
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+
+  const { data, refetch, isLoading, isError } = useQuery({
+    queryKey: ["monthly-bazar"],
+    queryFn: async () => {
+      const response = await fetch(
+        `/api/bazar/monthly?month=${month}&year=${year}`
+      );
+      if (!response.ok) toast.error("Failed to fetch monthly bazar");
+      return response.json();
+    },
+  });
+
+  return {
+    data: data?.monthlyBazar as {
+      week: string;
+      items: IBazarItem[];
+    }[],
+    refetch,
+    isLoading,
+    isError,
   };
 };

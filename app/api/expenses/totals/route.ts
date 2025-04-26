@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/mongoose";
 import { MonthlyExpense } from "@/models/expense";
+import { startOfDay, startOfMonth, startOfWeek } from "date-fns";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -7,11 +8,9 @@ export async function GET() {
     await dbConnect();
 
     const today = new Date();
-    const startOfDay = new Date(today.setHours(0, 0, 0, 0));
-    const startOfWeek = new Date(today);
-    startOfWeek.setDate(today.getDate() - today.getDay());
-    startOfWeek.setHours(0, 0, 0, 0);
-    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const date = startOfDay(today);
+    const week = startOfWeek(today);
+    const month = startOfMonth(today);
 
     const [dailyTotal, weeklyTotal, monthlyTotal] = await Promise.all([
       // Daily total
@@ -19,7 +18,7 @@ export async function GET() {
         { $unwind: "$expenses" },
         {
           $match: {
-            "expenses.date": { $gte: startOfDay },
+            "expenses.date": { $gte: date },
           },
         },
         {
@@ -34,7 +33,7 @@ export async function GET() {
         { $unwind: "$expenses" },
         {
           $match: {
-            "expenses.date": { $gte: startOfWeek },
+            "expenses.date": { $gte: week },
           },
         },
         {
@@ -49,7 +48,7 @@ export async function GET() {
         { $unwind: "$expenses" },
         {
           $match: {
-            "expenses.date": { $gte: startOfMonth },
+            "expenses.date": { $gte: month },
           },
         },
         {

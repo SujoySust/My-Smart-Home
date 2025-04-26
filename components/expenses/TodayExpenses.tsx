@@ -8,8 +8,9 @@ import { LoaderCard } from "../ui/loader-card";
 import { ExpenseItem } from "./ExpenseItem";
 import { ExpenseTotal } from "./ExpenseTotal";
 
-export function TodayExpenses() {
-  const { data, isLoading, isError, deleteExpense } = useTodayExpenses();
+export function TodayExpenses({ refetchTotal }: { refetchTotal?: () => void }) {
+  const { data, isLoading, isError, deleteExpense } =
+    useTodayExpenses(refetchTotal);
 
   if (isLoading) {
     return <LoaderCard message="Loading today's expenses" />;

@@ -28,7 +28,7 @@ export const CurrentExpenseSection: React.FC = () => {
 
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const { data } = useTotalExpense();
+  const { data, refetch } = useTotalExpense();
 
   return (
     <>
@@ -89,7 +89,7 @@ export const CurrentExpenseSection: React.FC = () => {
             </TabsList>
 
             <TabsContent value="today">
-              <TodayExpenses />
+              <TodayExpenses refetchTotal={refetch} />
             </TabsContent>
 
             <TabsContent value="weekly">
