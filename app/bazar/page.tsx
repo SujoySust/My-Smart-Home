@@ -1,4 +1,4 @@
-import { BazarSection } from "@/sections/bazar/Bazar.section";
+import { BazarSection } from "@/section/bazar/Bazar.section";
 
 export default function BazarPage() {
   return <BazarSection />;

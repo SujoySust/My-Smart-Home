@@ -30,7 +30,7 @@ export function useDashboardData() {
         throw new Error(errorData.error || "Failed to fetch expense totals");
       }
       const result = await response.json();
-      return result.data;
+      return result;
     },
   });
 

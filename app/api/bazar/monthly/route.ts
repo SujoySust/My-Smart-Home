@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/mongoose";
 import { Bazar } from "@/models/bazar";
 import { NextResponse } from "next/server";
+import { BAZAR_STATUS } from "../constants";
 
 export async function GET(request: Request) {
   try {
@@ -16,6 +17,7 @@ export async function GET(request: Request) {
         $match: {
           year: Number(year),
           month: Number(month),
+          "items.status": BAZAR_STATUS.COMPLETED,
         },
       },
       {
