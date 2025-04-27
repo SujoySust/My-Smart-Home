@@ -3,14 +3,23 @@ import { MonthlyExpense } from "@/models/expense";
 import { startOfDay, startOfMonth, startOfWeek } from "date-fns";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     await dbConnect();
 
-    const today = new Date();
-    const date = startOfDay(today);
-    const week = startOfWeek(today);
-    const month = startOfMonth(today);
+    const { searchParams } = new URL(request.url);
+    const today = searchParams.get("today");
+
+    if (!today) {
+      return NextResponse.json(
+        { error: "Today date is required" },
+        { status: 400 }
+      );
+    }
+
+    const date = startOfDay(new Date(today));
+    const week = startOfWeek(date);
+    const month = startOfMonth(date);
 
     const [dailyTotal, weeklyTotal, monthlyTotal] = await Promise.all([
       // Daily total
