@@ -178,10 +178,16 @@ export function useWeeklyMealPlanAction() {
         const errorData = await response.json();
         throw new Error(errorData.error || "Failed to delete meal item");
       }
+      const result = await response.json();
+      return result.data;
     },
-    onSuccess: () => {
+    onSuccess: async (_, variables) => {
       toast.success("Meal item deleted successfully");
       queryClient.invalidateQueries({ queryKey: ["mealPlan"] });
+      await queryClient.invalidateQueries({
+        queryKey: ["mealItems", variables.day, variables.mealTime],
+      });
+      await refetchMealPlan();
     },
     onError: (error: Error) => {
       toast.error(error.message);

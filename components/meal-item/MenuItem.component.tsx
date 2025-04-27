@@ -6,11 +6,7 @@ export const MenuItem = ({
   deleteMealItem,
 }: {
   item: MealItem;
-  deleteMealItem?: (params: {
-    day: string;
-    mealTime: string;
-    itemId: string;
-  }) => Promise<void>;
+  deleteMealItem?: () => Promise<void>;
 }) => {
   return (
     <div className="space-y-2">
@@ -22,7 +18,7 @@ export const MenuItem = ({
         {deleteMealItem && (
           <button
             className="p-1.5 sm:p-2 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors shrink-0"
-            onClick={async () => deleteMealItem}
+            onClick={() => deleteMealItem()}
           >
             <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </button>
